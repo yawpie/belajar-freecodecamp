@@ -1,10 +1,14 @@
 let express = require("express");
 let app = express();
-const dotenv = require("dotenv").config();
+require("dotenv").config();
 
 console.log("Hello World");
 const middlewarePath = __dirname + "/public";
 app.use("/public", express.static(middlewarePath));
+app.use("/", (req, res, next) => {
+  console.log(`${req.method} ${req.path} - ${req.ip}`);
+  next();
+});
 
 app.get("/", (req, res) => {
   const path = __dirname + "/views/index.html";
@@ -17,4 +21,5 @@ app.get("/json", (req, res) => {
   }
   res.send({ message: `${pesan}` });
 });
+
 module.exports = app;
