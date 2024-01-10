@@ -1,6 +1,6 @@
 let express = require("express");
 let app = express();
-const path = require("path");
+const dotenv = require("dotenv").config();
 
 console.log("Hello World");
 const middlewarePath = __dirname + "/public";
@@ -11,6 +11,10 @@ app.get("/", (req, res) => {
   res.sendFile(path);
 });
 app.get("/json", (req, res) => {
-  res.send({ message: "Hello json" });
+  let pesan = "Hello json";
+  if (process.env.MESSAGE_STYLE == "uppercase") {
+    pesan = pesan.toUpperCase();
+  }
+  res.send({ message: `${pesan}` });
 });
 module.exports = app;
