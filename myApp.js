@@ -1,6 +1,7 @@
 let express = require("express");
 let app = express();
 require("dotenv").config();
+const bodyParser = require("body-parser");
 
 console.log("Hello World");
 const middlewarePath = __dirname + "/public";
@@ -9,6 +10,7 @@ app.use("/", (req, res, next) => {
   console.log(`${req.method} ${req.path} - ${req.ip}`);
   next();
 });
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get("/", (req, res) => {
   const path = __dirname + "/views/index.html";
