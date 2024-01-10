@@ -1,11 +1,13 @@
 let express = require("express");
 let app = express();
+const path = require("path");
 
 console.log("Hello World");
-app.use(express.static(__dirname + "/public"));
+const middlewarePath = __dirname + "/public";
+app.use("/public", express.static(middlewarePath));
 
 app.get("/", (req, res) => {
-  let path = __dirname + "/views/index.html";
+  const path = __dirname + "/views/index.html";
   res.sendFile(path);
 });
 
